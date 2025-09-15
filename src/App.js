@@ -16,7 +16,7 @@ function App() {
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-gray-900 dark:to-gray-800 p-4">
       <SearchBar onSearch={handleSearch} />
       {weather && <WeatherCard weather={weather} />}
-      {/* Optional: <ForecastChart forecast={weather.forecast} /> */}
+      {<ForecastChart forecast={weather.forecast} />}
     </div>
   );
 }
