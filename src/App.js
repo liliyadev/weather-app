@@ -1,23 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import SearchBar from "./components/SearchBar";
+import WeatherCard from "./components/WeatherCard";
+import ForecastChart from "./components/ForecastChart";
+import { fetchWeather } from "./utils/fetchWeather";
 
 function App() {
+  const [weather, setWeather] = useState(null);
+
+  const handleSearch = async (city) => {
+    const data = await fetchWeather(city);
+    setWeather(data);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-gray-900 dark:to-gray-800 p-4">
+      <SearchBar onSearch={handleSearch} />
+      {weather && <WeatherCard weather={weather} />}
+      {/* Optional: <ForecastChart forecast={weather.forecast} /> */}
     </div>
   );
 }
