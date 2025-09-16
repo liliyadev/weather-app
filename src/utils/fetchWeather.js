@@ -19,6 +19,7 @@ export const fetchWeather = async (city) => {
     return {
       ...geoData,
       forecast: forecastData.daily || [],
+      hourly: forecastData.hourly || [],
     };
   } catch (error) {
     console.error("Weather fetch failed:", error);

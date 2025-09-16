@@ -3,6 +3,7 @@ import SearchBar from "./components/SearchBar";
 import WeatherCard from "./components/WeatherCard";
 import ForecastChart from "./components/ForecastChart";
 import { fetchWeather } from "./utils/fetchWeather";
+import HourlyChart from "./components/HourlyChart";
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -39,7 +40,10 @@ function App() {
   <p className="text-center text-gray-500 mt-8">
     Enter a city to reveal the sky’s secrets...
   </p>
-)}     
+)}   
+  
+{Array.isArray(weather?.hourly) && <HourlyChart hourly={weather.hourly} />}
+
 
     </div>
   );
