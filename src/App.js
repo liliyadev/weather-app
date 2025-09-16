@@ -5,6 +5,7 @@ import ForecastChart from "./components/ForecastChart";
 import ForecastCards from "./components/ForecastCards"; 
 import HourlyChart from "./components/HourlyChart";
 import { fetchWeather } from "./utils/fetchWeather";
+import ViewToggle from "./components/ViewToggle";
 
 function App() {
   const [weather, setWeather] = useState(null);
@@ -44,42 +45,9 @@ function App() {
 
       {weather && <WeatherCard weather={weather} />}
 
-      {weather && (
-        <div className="flex justify-center gap-4 mt-6">
-          <button
-            onClick={() => setView("hourly")}
-            className={`px-4 py-2 rounded ${view === "hourly" ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700"}`}
-          >
-            Hourly
-          </button>
-          <button
-            onClick={() => setView("daily")}
-            className={`px-4 py-2 rounded ${view === "daily" ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700"}`}
-          >
-            7-Day
-          </button>
-        </div>
-      )}
-
 
       {/* 🌡️ Current Weather */}
-      {weather && (
-        <div className="flex justify-center gap-4 mt-6">
-          <button
-            onClick={() => setView("hourly")}
-            className={`px-4 py-2 rounded ${view === "hourly" ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700"}`}
-          >
-            Hourly
-          </button>
-          <button
-            onClick={() => setView("daily")}
-            className={`px-4 py-2 rounded ${view === "daily" ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700"}`}
-          >
-            7-Day
-          </button>
-        </div>
-      )}
-
+      {weather && <ViewToggle view={view} setView={setView} />}
 
       {/* 📊 Forecast Views */}
       {view === "hourly" && (
