@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SearchBar from "./components/SearchBar";
 import WeatherCard from "./components/WeatherCard";
-import ForecastChart from "./components/ForecastChart";
+//import ForecastChart from "./components/ForecastChart";
 import ForecastCards from "./components/ForecastCards"; 
 import HourlyChart from "./components/HourlyChart";
 import { fetchWeather } from "./utils/fetchWeather";
