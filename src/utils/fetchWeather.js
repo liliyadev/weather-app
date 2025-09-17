@@ -7,15 +7,22 @@ export const fetchWeather = async (city) => {
 
     const { lat, lon } = currentData.coord;
 
-    const oneCallRes = await fetch(
-      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`
-    );
-    const oneCallData = await oneCallRes.json();
-
     const forecastRes = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`
     );
     const forecastData = await forecastRes.json();
+
+    // Extract first 8 entries (next 24 hours in 3-hour intervals)
+    const hourlySimulated = forecastData.list.slice(0, 8).map(entry => ({
+      dt: new Date(entry.dt_txt).getTime() / 1000,
+      temp: entry.main.temp,
+      weather: entry.weather,
+    }));
+    
+    const oneCallRes = await fetch(
+      `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=minutely,alerts&units=metric&appid=${process.env.REACT_APP_WEATHER_KEY}`
+    );
+    const oneCallData = await oneCallRes.json();
 
     const groupedByDay = forecastData.list.reduce((acc, entry) => {
       const date = entry.dt_txt.split(" ")[0];
@@ -39,7 +46,7 @@ export const fetchWeather = async (city) => {
 
     return {
       current: currentData, 
-      hourly: oneCallData.hourly || [],
+      hourly:  hourlySimulated,
       daily: oneCallData.daily || [],
       forecast: dailyGrouped,
     };

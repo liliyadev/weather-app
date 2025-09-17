@@ -20,7 +20,7 @@ function App() {
     setLoading(false);
   };
 
-
+  console.log("Current weather:", weather?.current);
   console.log("Current view:", view);
   console.log("Hourly:", weather?.hourly);
   console.log("Forecast:", weather?.forecast);
@@ -54,6 +54,7 @@ function App() {
           <p className="text-center text-gray-500 mt-4">No hourly data available.</p>
         )
       )}
+
 
       {view === "daily" ? (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
