@@ -40,16 +40,13 @@ function App() {
       <SearchBar onSearch={handleSearch} />
 
       {loading && (
-        <p className="text-center text-gray-500 mt-4">Fetching the sky’s secrets...</p>
+  <p className="text-center text-gray-500 mt-4">Fetching the sky’s secrets...</p>
       )}
 
-      {weather && <WeatherCard weather={weather} />}
+      {weather?.current && <WeatherCard weather={weather.current} />}
 
-
-      {/* 🌡️ Current Weather */}
       {weather && <ViewToggle view={view} setView={setView} />}
 
-      {/* 📊 Forecast Views */}
       {view === "hourly" && (
         Array.isArray(weather?.hourly) && weather.hourly.length > 0 ? (
           <HourlyChart hourly={weather.hourly} />
@@ -57,6 +54,7 @@ function App() {
           <p className="text-center text-gray-500 mt-4">No hourly data available.</p>
         )
       )}
+
       {view === "daily" ? (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
           <ForecastCards forecast={weather.forecast} />
@@ -64,6 +62,7 @@ function App() {
           <p className="text-center text-gray-500 mt-4">No daily forecast available.</p>
         )
       ) : null}
+
 
      {/*} {view === "daily" && (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
