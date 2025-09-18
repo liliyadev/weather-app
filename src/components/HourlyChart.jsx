@@ -16,31 +16,32 @@ const HourlyChart = ({ hourly }) => {
         <div className="w-full flex justify-center mt-12 px-4">
             <div className="w-full max-w-4xl mx-auto bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]">
             <Plot
+                className="block mx-auto"
                 data={[{
-                x: hours,
-                y: temps,
-                type: "scatter",
-                mode: "lines+markers",
-                line: { shape: "spline", color: "#00ffe0", width: 3 },
-                marker: { color: "#ff6ec7", size: 8 },
-                fill: "tozeroy",
-                fillcolor: "rgba(0,255,224,0.2)",
-                text: hourly.slice(0, 24).map(h =>
+                    x: hours,
+                    y: temps,
+                    type: "scatter",
+                    mode: "lines+markers",
+                    line: { shape: "spline", color: "#00ffe0", width: 3 },
+                    marker: { color: "#ff6ec7", size: 8 },
+                    fill: "tozeroy",
+                    fillcolor: "rgba(0,255,224,0.2)",
+                    text: hourly.slice(0, 24).map(h =>
                     `${new Date(h.dt * 1000).toLocaleTimeString("en-US", { hour: "numeric" })} — ${Math.round(h.temp)}°C — ${h.description}`
-                ),
-                hoverinfo: "text",
+                    ),
+                    hoverinfo: "text",
                 }]}
                 layout={{
-                title: {
+                    title: {
                     text: "Hourly Temperature",
                     font: { color: "#00ffe0", size: 24 },
-                },
-                paper_bgcolor: "rgba(30,30,47,0.8)",
-                plot_bgcolor: "rgba(30,30,47,0.6)",
-                font: { color: "#c0c0c0" },
-                margin: { t: 50, b: 50, l: 40, r: 40 },
+                    },
+                    paper_bgcolor: "rgba(30,30,47,0.8)",
+                    plot_bgcolor: "rgba(30,30,47,0.6)",
+                    font: { color: "#c0c0c0" },
+                    margin: { t: 50, b: 50, l: 40, r: 40 },
                 }}
-            />
+                />
             </div>
         </div>
 
