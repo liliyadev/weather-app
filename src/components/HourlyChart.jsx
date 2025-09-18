@@ -58,18 +58,19 @@ const HourlyChart = ({ hourly }) => {
        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-6 mt-12">
         {hourly.slice(0, 8).map((hour, i) => (
             <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-4 shadow-[0_0_20px_rgba(0,255,224,0.3)] hover:scale-105 transition-transform text-center text-white"
-            >
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="w-full max-w-4xl mx-auto bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]"
+                >
                 <Plot
                     style={{ display: "block", margin: "0 auto" }}
                     className="w-full"
                     data={[{
                     x: hours,
-                    y: hourly.slice(0, 24).map(h => metric === "temp" ? h.temp : metric === "wind" ? h.wind : h.rain),
+                    y: hourly.slice(0, 24).map(h =>
+                        metric === "temp" ? h.temp : metric === "wind" ? h.wind : h.rain
+                    ),
                     type: chartType === "bar" ? "bar" : "scatter",
                     mode: chartType === "lines" ? "lines+markers" : undefined,
                     line: { shape: "spline", color: "#00ffe0", width: 3 },
@@ -77,7 +78,10 @@ const HourlyChart = ({ hourly }) => {
                     fill: "tozeroy",
                     fillcolor: "rgba(0,255,224,0.2)",
                     text: hourly.slice(0, 24).map(h => {
-                        const value = metric === "temp" ? `${Math.round(h.temp)}°C` : metric === "wind" ? `${h.wind} m/s` : `${h.rain} mm`;
+                        const value =
+                        metric === "temp" ? `${Math.round(h.temp)}°C` :
+                        metric === "wind" ? `${h.wind} m/s` :
+                        `${h.rain} mm`;
                         return `${new Date(h.dt * 1000).toLocaleTimeString("en-US", { hour: "numeric" })} — ${value} — ${h.description}`;
                     }),
                     hoverinfo: "text",
@@ -94,6 +98,7 @@ const HourlyChart = ({ hourly }) => {
                     }}
                 />
                 </motion.div>
+
 
         ))}
         </div>
