@@ -10,7 +10,7 @@ const ViewToggle = ({ view, setView }) => (
       onClick={() => setView("daily")}
       className={`transition-colors duration-300 px-4 py-2 rounded ${view === "daily" ? "bg-indigo-500 text-white" : "bg-gray-200 dark:bg-gray-700"}`}
     >
-      📅 7-Day
+      📅 6-Day
     </button>
   </div>
 );
