@@ -55,7 +55,10 @@ function App() {
         )
       )}
 
-
+      {view === "dailyGrouped" && weather?.dailyGrouped.length > 0 && (
+        <ForecastCards forecast={weather.dailyGrouped} />
+      )}
+      
       {view === "daily" ? (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
           <ForecastCards forecast={weather.forecast} />
