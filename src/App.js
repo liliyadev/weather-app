@@ -52,17 +52,18 @@ function App() {
       )}
 
       {weather?.current && (
-        <div className="mb-8">
+        <div className="mb-10">
           <WeatherCard weather={weather.current} />
         </div>
       )}
+  <div className="h-1 w-full max-w-md mx-auto bg-gradient-to-r from-[#00ffe0] via-[#ff6ec7] to-[#00ffe0] rounded-full my-8"></div>
 
       {weather && (
         <div className="mb-8">
           <ViewToggle view={view} setView={setView} />
         </div>
       )}
-
+  
       {view === "hourly" && (
         Array.isArray(weather?.hourly) && weather.hourly.length > 0 ? (
           <HourlyChart hourly={weather.hourly} />
@@ -114,7 +115,7 @@ function App() {
           <a href="https://www.linkedin.com/in/liliya-vildanovadev/" className="hover:text-[#00ffe0] transition">LinkedIn</a>
         </div>
       </footer>
-
+    
     </div>
   );
 }
