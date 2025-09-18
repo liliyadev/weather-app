@@ -16,9 +16,14 @@ const forecastData = await forecastRes.json();
     // Simulated hourly: next 24 hours
     const hourlySimulated = forecastData.list.slice(0, 8).map(entry => ({
       dt: new Date(entry.dt_txt).getTime() / 1000,
+      time: entry.dt_txt.split(" ")[1], // optional: "HH:MM:SS"
       temp: entry.main.temp,
-      weather: entry.weather,
+      icon: entry.weather[0].icon,
+      description: entry.weather[0].description,
+      wind: entry.wind.speed,
+      rain: entry.rain?.["3h"] ?? 0,
     }));
+
 
     // Group 3-hour data into daily summaries
     const groupedByDay = forecastData.list.reduce((acc, entry) => {
@@ -63,15 +68,13 @@ const forecastData = await forecastRes.json();
     console.log("Simulated dailyGrouped:", dailyGrouped.length);
     console.log("True forecast:", forecast.length);
     console.log("One Call daily:", oneCallData.daily);
+    
 
     return {
       current: currentData,
-      hourly: forecastData.list.slice(0, 8).map(entry => ({
-        dt: new Date(entry.dt_txt).getTime() / 1000,
-        temp: entry.main.temp,
-        weather: entry.weather,
-      })),
-      forecast: dailyGrouped, 
+      hourly: hourlySimulated,
+      forecast: dailyGrouped,
+      dailyGrouped, 
     };
 
   } catch (error) {
