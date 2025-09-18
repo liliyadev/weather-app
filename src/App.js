@@ -31,7 +31,7 @@ function App() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-gray-900 dark:to-gray-800 p-4 text-gray-800 dark:text-gray-100">
+    <div className="min-h-screen bg-gradient-to-br from-[#0a0f1c] via-[#1a1f2f] to-[#0f0f0f] text-white p-4">
 
       {/* 🌤️ Hero Section */}
       <div className="text-center py-12">
@@ -44,9 +44,6 @@ function App() {
 
       {/* 🔍 Search */}
       <SearchBar onSearch={handleSearch} />
-      <input
-        className="w-full max-w-md px-6 py-3 rounded-xl bg-[#1e1e2f] bg-opacity-60 text-white placeholder-gray-400 border border-[#00ffe0] focus:outline-none focus:ring-2 focus:ring-[#00ffe0] backdrop-blur-md"
-      />
 
       {loading && (
   <p className="text-center text-gray-500 mt-4">Fetching the sky’s secrets...</p>
