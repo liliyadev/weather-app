@@ -35,14 +35,18 @@ function App() {
 
       {/* 🌤️ Hero Section */}
       <div className="text-center py-12">
-        <h1 className="text-5xl font-extrabold text-indigo-700 dark:text-indigo-300 mb-4">Sky Symphony</h1>
-        <p className="text-lg italic text-gray-600 dark:text-gray-400">
+        <h1 className="text-6xl font-extrabold text-[#00ffe0] tracking-wide drop-shadow-lg">Sky Symphony</h1>
+        <p className="text-lg italic text-[#c0c0c0] mt-2">
           “Forecasts with feeling—explore the sky’s mood in motion.”
         </p>
       </div>
 
+
       {/* 🔍 Search */}
       <SearchBar onSearch={handleSearch} />
+      <input
+        className="w-full max-w-md px-6 py-3 rounded-xl bg-[#1e1e2f] bg-opacity-60 text-white placeholder-gray-400 border border-[#00ffe0] focus:outline-none focus:ring-2 focus:ring-[#00ffe0] backdrop-blur-md"
+      />
 
       {loading && (
   <p className="text-center text-gray-500 mt-4">Fetching the sky’s secrets...</p>
@@ -95,14 +99,15 @@ function App() {
       )}
 
       {/* 🧭 Footer */}
-      <footer className="mt-12 text-center text-sm text-gray-500 dark:text-gray-400">
-        <p>Designed & coded by Liliya Vildanova — Front-End Developer & Designer</p>
-        <div className="flex justify-center gap-4 mt-2">
-          <a href="https://github.com/liliyadev" target="_blank" rel="noopener noreferrer" className="hover:underline">GitHub</a>
-          <a href="https://blog.liliyadev.ca" target="_blank" rel="noopener noreferrer" className="hover:underline">Blog</a>
-          <a href="https://www.linkedin.com/in/liliya-vildanovadev/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+      <footer className="mt-12 text-center text-sm text-[#c0c0c0]">
+        <p className="text-[#00ffe0] font-semibold">Designed & coded by Liliya Vildanova</p>
+        <div className="flex justify-center gap-6 mt-2 text-[#c0c0c0]">
+          <a href="https://github.com/liliyadev" className="hover:text-[#00ffe0] transition">GitHub</a>
+          <a href="https://blog.liliyadev.ca" className="hover:text-[#00ffe0] transition">Blog</a>
+          <a href="https://www.linkedin.com/in/liliya-vildanovadev/" className="hover:text-[#00ffe0] transition">LinkedIn</a>
         </div>
       </footer>
+
     </div>
   );
 }

@@ -36,7 +36,7 @@ const HourlyChart = ({ hourly }) => {
       />
 
       {/* 🕒 Hourly Breakdown */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
+      <div className="max-w-5xl mx-auto mt-8 p-6 rounded-xl bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] shadow-lg">
         {hourly.slice(0, 8).map((hour, i) => (
           <div key={i} className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow text-center">
             <p className="font-semibold text-indigo-600 dark:text-indigo-300">
