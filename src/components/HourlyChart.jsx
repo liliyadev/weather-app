@@ -13,7 +13,7 @@ const HourlyChart = ({ hourly }) => {
   return (
     <div className="mt-12">
         {/* 📈 Chart */}
-        <div className="flex justify-center">
+        <div className="w-full flex justify-center mt-12 px-4">
             <div className="w-full max-w-4xl bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]">
             <Plot
                 data={[{

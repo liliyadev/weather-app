@@ -51,9 +51,17 @@ function App() {
   <p className="text-center text-gray-500 mt-4">Fetching the sky’s secrets...</p>
       )}
 
-      {weather?.current && <WeatherCard weather={weather.current} />}
+      {weather?.current && (
+        <div className="mb-8">
+          <WeatherCard weather={weather.current} />
+        </div>
+      )}
 
-      {weather && <ViewToggle view={view} setView={setView} />}
+      {weather && (
+        <div className="mb-8">
+          <ViewToggle view={view} setView={setView} />
+        </div>
+      )}
 
       {view === "hourly" && (
         Array.isArray(weather?.hourly) && weather.hourly.length > 0 ? (
