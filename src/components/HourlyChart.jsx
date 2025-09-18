@@ -11,7 +11,8 @@ const HourlyChart = ({ hourly }) => {
   if (!hours.length || !temps.length) return <p className="text-center text-gray-500">No hourly temperature data available.</p>;
 
   return (
-    <div className="max-w-4xl mx-auto mt-8">
+    <div className="flex justify-center mt-12">
+    <div className="w-full max-w-4xl bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]">
       {/* 📈 Chart */}
       <Plot
         data={[{
@@ -39,6 +40,7 @@ const HourlyChart = ({ hourly }) => {
             margin: { t: 50, b: 50, l: 40, r: 40 },
         }}
         />
+    </div>
 
       {/* 🕒 Hourly Breakdown */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-6 mt-8">
@@ -64,7 +66,7 @@ const HourlyChart = ({ hourly }) => {
             </div>
         ))}
         </div>
-
+    
     </div>
   );
 };
