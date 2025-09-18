@@ -22,7 +22,7 @@ const HourlyChart = ({ hourly }) => {
             {["lines", "bar"].map(type => (
                 <button
                 key={type}
-                onClick={() => setChartType(type)}
+                onClick={() => setMetric("temp")}
                 className={`px-4 py-2 rounded-lg border ${
                     chartType === type ? "bg-[#00ffe0] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
                 } hover:scale-105 transition`}
