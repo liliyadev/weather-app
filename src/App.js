@@ -22,12 +22,11 @@ function App() {
 
   console.log("Current weather:", weather?.current);
   console.log("Current view:", view);
-  console.log("Hourly:", weather?.hourly);
+  console.log("Hourly forecast:", weather?.hourly);
   console.log("Forecast:", weather?.forecast);
   console.log("One Call forecast:", weather?.forecast);
   console.log("Grouped forecast:", weather?.forecast);
   console.log("7-day forecast:", weather?.forecast);
-
 
 
   return (
