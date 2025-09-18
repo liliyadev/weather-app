@@ -24,6 +24,9 @@ function App() {
   console.log("Current view:", view);
   console.log("Hourly:", weather?.hourly);
   console.log("Forecast:", weather?.forecast);
+  console.log("One Call forecast:", weather?.forecast);
+  console.log("Grouped forecast:", weather?.dailyGrouped);
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-indigo-200 dark:from-gray-900 dark:to-gray-800 p-4 text-gray-800 dark:text-gray-100">
@@ -58,14 +61,15 @@ function App() {
       {view === "dailyGrouped" && weather?.dailyGrouped.length > 0 && (
         <ForecastCards forecast={weather.dailyGrouped} />
       )}
-      
-      {view === "daily" ? (
+
+      {view === "daily" && (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
           <ForecastCards forecast={weather.forecast} />
         ) : (
           <p className="text-center text-gray-500 mt-4">No daily forecast available.</p>
         )
-      ) : null}
+      )}
+
 
 
      {/*} {view === "daily" && (
