@@ -18,19 +18,41 @@ const HourlyChart = ({ hourly }) => {
 
   return (
     <div className="mt-12">
-        <div className="flex justify-center gap-4 mb-6">
-            {["lines", "bar"].map(type => (
+        <div className="flex flex-col items-center gap-4 mb-6">
+            {/* Chart Type Toggle */}
+            <div className="flex justify-center gap-4">
+                {["lines", "bar"].map(type => (
                 <button
-                key={type}
-                onClick={() => setMetric("temp")}
-                className={`px-4 py-2 rounded-lg border ${
+                    key={type}
+                    onClick={() => setChartType(type)}
+                    className={`relative px-4 py-2 rounded-lg border overflow-hidden ${
                     chartType === type ? "bg-[#00ffe0] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
-                } hover:scale-105 transition`}
+                    } hover:scale-105 transition`}
                 >
-                {type === "lines" ? "📈 Line" : "📊 Bar"}
+                    <span className="relative z-10">
+                    {type === "lines" ? "📈 Line" : "📊 Bar"}
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-[#00ffe0] via-[#ff6ec7] to-[#00ffe0] opacity-20 animate-pulse"></span>
                 </button>
-            ))}
+                ))}
             </div>
+
+            {/* Metric Toggle */}
+            <div className="flex justify-center gap-4">
+                {["temp", "wind", "rain"].map(type => (
+                <button
+                    key={type}
+                    onClick={() => setMetric(type)}
+                    className={`px-4 py-2 rounded-lg border ${
+                    metric === type ? "bg-[#ff6ec7] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
+                    } hover:scale-105 transition`}
+                >
+                    {type === "temp" ? "🌡️ Temp" : type === "wind" ? "💨 Wind" : "🌧️ Rain"}
+                </button>
+                ))}
+            </div>
+            </div>
+
 
         {/* 📈 Chart */}
        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-6 mt-12">
