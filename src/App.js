@@ -25,7 +25,9 @@ function App() {
   console.log("Hourly:", weather?.hourly);
   console.log("Forecast:", weather?.forecast);
   console.log("One Call forecast:", weather?.forecast);
-  console.log("Grouped forecast:", weather?.dailyGrouped);
+  console.log("Grouped forecast:", weather?.forecast);
+  console.log("7-day forecast:", weather?.forecast);
+
 
 
   return (
@@ -69,8 +71,6 @@ function App() {
           <p className="text-center text-gray-500 mt-4">No daily forecast available.</p>
         )
       )}
-
-
 
      {/*} {view === "daily" && (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
