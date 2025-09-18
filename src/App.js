@@ -43,7 +43,9 @@ function App() {
 
 
       {/* 🔍 Search */}
-      <SearchBar onSearch={handleSearch} />
+      <div className="max-w-md mx-auto mb-8">
+        <SearchBar onSearch={handleSearch} />
+      </div>
 
       {loading && (
   <p className="text-center text-gray-500 mt-4">Fetching the sky’s secrets...</p>
