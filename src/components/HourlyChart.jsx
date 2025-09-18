@@ -19,24 +19,30 @@ const HourlyChart = ({ hourly }) => {
         <div className="flex justify-center gap-4 mb-6">
             {["temp", "wind", "rain"].map(type => (
                 <button
-                key={type}
-                onClick={() => setMetric(type)}
-                className={`px-4 py-2 rounded-lg border ${
-                    metric === type ? "bg-[#00ffe0] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
-                } hover:scale-105 transition`}
-                >
-                {type === "temp" ? "🌡️ Temp" : type === "wind" ? "💨 Wind" : "🌧️ Rain"}
-                </button>
+                    key={type}
+                    onClick={() => setMetric(type)}
+                    className={`relative px-4 py-2 rounded-lg border overflow-hidden ${
+                        metric === type ? "bg-[#00ffe0] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
+                    } hover:scale-105 transition`}
+                    >
+                    <span className="relative z-10">
+                        {type === "temp" ? "🌡️ Temp" : type === "wind" ? "💨 Wind" : "🌧️ Rain"}
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-[#00ffe0] via-[#ff6ec7] to-[#00ffe0] opacity-20 animate-pulse"></span>
+                    </button>
+
             ))}
             </div>
         {/* 📈 Chart */}
-        <div className="w-full flex justify-center mt-12 px-4">
+       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-6 mt-12">
+        {hourly.slice(0, 8).map((hour, i) => (
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="w-full max-w-4xl mx-auto bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]"
-                >
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: i * 0.1 }}
+            className="bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-4 shadow-[0_0_20px_rgba(0,255,224,0.3)] hover:scale-105 transition-transform text-center text-white"
+            >
                 <Plot
                     style={{ display: "block", margin: "0 auto" }}
                     className="w-full"
@@ -68,7 +74,10 @@ const HourlyChart = ({ hourly }) => {
                 />
                 </motion.div>
 
+        ))}
         </div>
+        
+        <div className="h-1 w-full max-w-md mx-auto bg-gradient-to-r from-[#00ffe0] via-[#ff6ec7] to-[#00ffe0] rounded-full my-12"></div>
 
         {/* 🕒 Hourly Breakdown */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-6 mt-12">
