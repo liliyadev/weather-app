@@ -66,7 +66,7 @@ function App() {
       {view === "dailyGrouped" && weather?.dailyGrouped.length > 0 && (
         <ForecastCards forecast={weather.dailyGrouped} />
       )}
-
+    <section className="px-4 md:px-12 lg:px-24">
       {view === "daily" && (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
           <ForecastCards forecast={weather.forecast} />
@@ -74,7 +74,7 @@ function App() {
           <p className="text-center text-gray-500 mt-4">No daily forecast available.</p>
         )
       )}
-
+    </section>
      {/*} {view === "daily" && (
         Array.isArray(weather?.forecast) && weather.forecast.length > 0 ? (
           <>
