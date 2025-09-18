@@ -1,5 +1,7 @@
 import React from "react";
 import Plot from "react-plotly.js";
+import { motion } from "framer-motion";
+
 
 const HourlyChart = ({ hourly }) => {
   const hours = hourly.slice(0, 24).map(h =>
@@ -7,44 +9,65 @@ const HourlyChart = ({ hourly }) => {
   );
   const temps = hourly.slice(0, 24).map(h => h.temp);
 
+  const [metric, setMetric] = React.useState("temp");
+
   if (!hourly || hourly.length === 0) return <p className="text-center text-gray-500">No hourly data available.</p>;
   if (!hours.length || !temps.length) return <p className="text-center text-gray-500">No hourly temperature data available.</p>;
 
   return (
     <div className="mt-12">
+        <div className="flex justify-center gap-4 mb-6">
+            {["temp", "wind", "rain"].map(type => (
+                <button
+                key={type}
+                onClick={() => setMetric(type)}
+                className={`px-4 py-2 rounded-lg border ${
+                    metric === type ? "bg-[#00ffe0] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
+                } hover:scale-105 transition`}
+                >
+                {type === "temp" ? "🌡️ Temp" : type === "wind" ? "💨 Wind" : "🌧️ Rain"}
+                </button>
+            ))}
+            </div>
         {/* 📈 Chart */}
         <div className="w-full flex justify-center mt-12 px-4">
-            <div className="w-full max-w-3xl mx-auto bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]">
-            <Plot
-                style={{ display: "block", margin: "0 auto" }}
-                className="w-full"
-                data={[{
+            <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="w-full max-w-4xl mx-auto bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]"
+                >
+                <Plot
+                    style={{ display: "block", margin: "0 auto" }}
+                    className="w-full"
+                    data={[{
                     x: hours,
-                    y: temps,
+                    y: hourly.slice(0, 24).map(h => metric === "temp" ? h.temp : metric === "wind" ? h.wind : h.rain),
                     type: "scatter",
                     mode: "lines+markers",
                     line: { shape: "spline", color: "#00ffe0", width: 3 },
                     marker: { color: "#ff6ec7", size: 8 },
                     fill: "tozeroy",
                     fillcolor: "rgba(0,255,224,0.2)",
-                    text: hourly.slice(0, 24).map(h =>
-                    `${new Date(h.dt * 1000).toLocaleTimeString("en-US", { hour: "numeric" })} — ${Math.round(h.temp)}°C — ${h.description}`
-                    ),
+                    text: hourly.slice(0, 24).map(h => {
+                        const value = metric === "temp" ? `${Math.round(h.temp)}°C` : metric === "wind" ? `${h.wind} m/s` : `${h.rain} mm`;
+                        return `${new Date(h.dt * 1000).toLocaleTimeString("en-US", { hour: "numeric" })} — ${value} — ${h.description}`;
+                    }),
                     hoverinfo: "text",
-                }]}
-                layout={{
+                    }]}
+                    layout={{
                     title: {
-                    text: "Hourly Temperature",
-                    font: { color: "#00ffe0", size: 24 },
+                        text: metric === "temp" ? "Hourly Temperature" : metric === "wind" ? "Hourly Wind Speed" : "Hourly Rainfall",
+                        font: { color: "#00ffe0", size: 24 },
                     },
                     paper_bgcolor: "rgba(30,30,47,0.8)",
                     plot_bgcolor: "rgba(30,30,47,0.6)",
                     font: { color: "#c0c0c0" },
                     margin: { t: 50, b: 50, l: 40, r: 40 },
-                }}
+                    }}
                 />
+                </motion.div>
 
-            </div>
         </div>
 
         {/* 🕒 Hourly Breakdown */}
