@@ -56,44 +56,61 @@ const HourlyChart = ({ hourly }) => {
 
         {/* 📈 Chart */}
             <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full max-w-5xl mx-auto bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)]"
-            >
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="w-full max-w-5xl mx-auto bg-[#1e1e2f] bg-opacity-80 backdrop-blur-md border border-[#00ffe0] rounded-xl p-6 shadow-[0_0_20px_rgba(0,255,224,0.3)] shadow-[0_0_30px_rgba(0,255,224,0.4)]"
+                >
+
             <Plot
                 style={{ display: "block", margin: "0 auto" }}
                 className="w-full"
                 data={[{
-                x: hours,
-                y: hourly.slice(0, 24).map(h =>
-                    metric === "temp" ? h.temp : metric === "wind" ? h.wind : h.rain
-                ),
-                type: chartType === "bar" ? "bar" : "scatter",
-                mode: chartType === "lines" ? "lines+markers" : undefined,
-                line: { shape: "spline", color: "#00ffe0", width: 3 },
-                marker: { color: "#ff6ec7", size: 8 },
-                fill: "tozeroy",
-                fillcolor: "rgba(0,255,224,0.2)",
-                text: hourly.slice(0, 24).map(h => {
-                    const value =
-                    metric === "temp" ? `${Math.round(h.temp)}°C` :
-                    metric === "wind" ? `${h.wind} m/s` :
-                    `${h.rain} mm`;
-                    return `${new Date(h.dt * 1000).toLocaleTimeString("en-US", { hour: "numeric" })} — ${value} — ${h.description}`;
-                }),
-                hoverinfo: "text",
-                }]}
+                    x: hours,
+                    y: hourly.slice(0, 24).map(h =>
+                        metric === "temp" ? h.temp : metric === "wind" ? h.wind : h.rain
+                    ),
+                    type: chartType === "bar" ? "bar" : "scatter",
+                    mode: chartType === "lines" ? "lines+markers" : undefined,
+                    line: { shape: "spline", color: "#00ffe0", width: 3 },
+                    marker: {
+                        color: hourly.slice(0, 24).map(() => "rgba(0,255,224,0.8)"),
+                        line: {
+                        color: "rgba(255,110,199,0.8)",
+                        width: 0.6
+                        }
+                    },
+                    fill: "tozeroy",
+                    fillcolor: "rgba(0,255,224,0.2)",
+                    text: hourly.slice(0, 24).map(h => {
+                        const value =
+                        metric === "temp" ? `${Math.round(h.temp)}°C` :
+                        metric === "wind" ? `${h.wind} m/s` :
+                        `${h.rain} mm`;
+                        return `${new Date(h.dt * 1000).toLocaleTimeString("en-US", { hour: "numeric" })} — ${value} — ${h.description}`;
+                    }),
+                    hoverinfo: "text"
+                    }]}
+
                 layout={{
-                title: {
-                    text: metric === "temp" ? "Hourly Temperature" : metric === "wind" ? "Hourly Wind Speed" : "Hourly Rainfall",
-                    font: { color: "#00ffe0", size: 24 },
-                },
-                paper_bgcolor: "rgba(30,30,47,0.8)",
-                plot_bgcolor: "rgba(30,30,47,0.6)",
-                font: { color: "#c0c0c0" },
-                margin: { t: 50, b: 50, l: 40, r: 40 },
-                }}
+                    title: {
+                        text: metric === "temp" ? "Hourly Temperature" : metric === "wind" ? "Hourly Wind Speed" : "Hourly Rainfall",
+                        font: { color: "#00ffe0", size: 24 },
+                    },
+                    paper_bgcolor: "rgba(30,30,47,0.8)",
+                    plot_bgcolor: "rgba(30,30,47,0.6)",
+                    font: { color: "#c0c0c0" },
+                    margin: { t: 50, b: 50, l: 40, r: 40 },
+                    hoverlabel: {
+                        bgcolor: "#1e1e2f",
+                        bordercolor: "#00ffe0",
+                        font: {
+                        color: "#ff6ec7",
+                        size: 14
+                        }
+                    }
+                    }}
+
             />
             </motion.div>
 
