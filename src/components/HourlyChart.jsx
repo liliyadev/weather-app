@@ -11,28 +11,27 @@ const HourlyChart = ({ hourly }) => {
 
   const [metric, setMetric] = React.useState("temp");
 
+  const [chartType, setChartType] = React.useState("lines");
+
   if (!hourly || hourly.length === 0) return <p className="text-center text-gray-500">No hourly data available.</p>;
   if (!hours.length || !temps.length) return <p className="text-center text-gray-500">No hourly temperature data available.</p>;
 
   return (
     <div className="mt-12">
         <div className="flex justify-center gap-4 mb-6">
-            {["temp", "wind", "rain"].map(type => (
+            {["lines", "bar"].map(type => (
                 <button
-                    key={type}
-                    onClick={() => setMetric(type)}
-                    className={`relative px-4 py-2 rounded-lg border overflow-hidden ${
-                        metric === type ? "bg-[#00ffe0] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
-                    } hover:scale-105 transition`}
-                    >
-                    <span className="relative z-10">
-                        {type === "temp" ? "🌡️ Temp" : type === "wind" ? "💨 Wind" : "🌧️ Rain"}
-                    </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-[#00ffe0] via-[#ff6ec7] to-[#00ffe0] opacity-20 animate-pulse"></span>
-                    </button>
-
+                key={type}
+                onClick={() => setChartType(type)}
+                className={`px-4 py-2 rounded-lg border ${
+                    chartType === type ? "bg-[#00ffe0] text-black" : "bg-[#1e1e2f] text-[#c0c0c0]"
+                } hover:scale-105 transition`}
+                >
+                {type === "lines" ? "📈 Line" : "📊 Bar"}
+                </button>
             ))}
             </div>
+
         {/* 📈 Chart */}
        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-8 gap-6 mt-12">
         {hourly.slice(0, 8).map((hour, i) => (
@@ -49,8 +48,8 @@ const HourlyChart = ({ hourly }) => {
                     data={[{
                     x: hours,
                     y: hourly.slice(0, 24).map(h => metric === "temp" ? h.temp : metric === "wind" ? h.wind : h.rain),
-                    type: "scatter",
-                    mode: "lines+markers",
+                    type: chartType === "bar" ? "bar" : "scatter",
+                    mode: chartType === "lines" ? "lines+markers" : undefined,
                     line: { shape: "spline", color: "#00ffe0", width: 3 },
                     marker: { color: "#ff6ec7", size: 8 },
                     fill: "tozeroy",
@@ -76,7 +75,7 @@ const HourlyChart = ({ hourly }) => {
 
         ))}
         </div>
-        
+
         <div className="h-1 w-full max-w-md mx-auto bg-gradient-to-r from-[#00ffe0] via-[#ff6ec7] to-[#00ffe0] rounded-full my-12"></div>
 
         {/* 🕒 Hourly Breakdown */}
